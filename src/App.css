@@ -1,38 +1,239 @@
-.App {
-  text-align: center;
+/* ZENITH PRO - GLOBAL STYLING SYSTEM (v5.0)
+  Optimized for Public Release | Fully Responsive | Anti-Overlap Logic
+*/
+
+:root {
+  --primary: #6366f1;
+  --secondary: #a855f7;
+  --bg-deep: #020617;
+  --sidebar-bg: rgba(15, 23, 42, 0.7);
+  --glass: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --text-main: #f8fafc;
+  --text-dim: #94a3b8;
+  --sidebar-w: 280px;
+  --neon-glow: 0 0 20px rgba(99, 102, 241, 0.4);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* --- CORE FOUNDATION --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  background-color: var(--bg-deep);
+  color: var(--text-main);
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden; /* App mode: No body scroll */
 }
 
-.App-header {
-  background-color: #282c34;
+/* --- DYNAMIC BACKGROUND PULSE --- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.12) 0%, transparent 40%);
+  filter: blur(100px);
+  z-index: -1;
+  animation: bgPulse 15s infinite alternate ease-in-out;
+}
+
+@keyframes bgPulse {
+  0% { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(1.15); opacity: 0.8; }
+}
+
+/* --- AUTHENTICATION (LOGIN/SIGNUP) --- */
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   min-height: 100vh;
+  padding: 2rem;
+}
+
+.auth-card {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(40px);
+  border: 1px solid var(--glass-border);
+  padding: 3.5rem 2.5rem;
+  border-radius: 2.5rem;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.8);
+  animation: slideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- INPUTS & BUTTONS --- */
+.input-container {
+  position: relative;
+  margin-bottom: 1.25rem;
+  width: 100%;
+}
+
+.zenith-input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--glass-border);
+  border-radius: 1rem;
+  color: white;
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.zenith-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: var(--neon-glow);
+}
+
+.zenith-btn {
+  width: 100%;
+  padding: 1.1rem;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  border: none;
+  border-radius: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.4);
+}
+
+.zenith-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.15);
+}
+
+/* --- DASHBOARD MASTER LAYOUT --- */
+.dashboard-layout {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+/* SIDEBAR - Fixed Stability */
+.sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  background: var(--sidebar-bg);
+  backdrop-filter: blur(50px);
+  border-right: 1px solid var(--glass-border);
+  padding: 3rem 1.5rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  z-index: 100;
 }
 
-.App-link {
-  color: #61dafb;
+/* MAIN CONTENT - Flexible Growth */
+.main-panel {
+  flex: 1;
+  height: 100%;
+  overflow-y: auto;
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  position: relative;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* ZERO-OVERLAP GRID SYSTEM */
+.insight-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  width: 100%;
+}
+
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: blur(25px);
+  border: 1px solid var(--glass-border);
+  border-radius: 2rem;
+  padding: 2rem;
+  transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.glass-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-8px);
+}
+
+/* THE POWER SCANNER AREA */
+.scan-area-wrapper {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr; /* Logic: Scanner takes more space */
+  gap: 2.5rem;
+  width: 100%;
+}
+
+.scan-btn-large {
+  background: rgba(99, 102, 241, 0.05);
+  border: 2px dashed var(--glass-border);
+  border-radius: 3rem;
+  padding: 6rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.scan-btn-large:hover {
+  border-color: var(--primary);
+  background: rgba(99, 102, 241, 0.1);
+  box-shadow: var(--neon-glow);
+}
+
+/* --- RESPONSIVE ADAPTATION (ALL DEVICES) --- */
+
+/* Laptops & Wide Screens */
+@media (max-width: 1200px) {
+  .main-panel { padding: 3rem; }
+  :root { --sidebar-w: 240px; }
+}
+
+/* Tablets & Landscape Mobile */
+@media (max-width: 1024px) {
+  .dashboard-layout { flex-direction: column; }
+  .sidebar {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    padding: 1.5rem;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--glass-border);
   }
-  to {
-    transform: rotate(360deg);
-  }
+  .sidebar h2 { margin-bottom: 0; margin-right: 2rem; }
+  .scan-area-wrapper { grid-template-columns: 1fr; }
+  .main-panel { padding: 2rem; }
+}
+
+/* Mobile Portrait */
+@media (max-width: 600px) {
+  .sidebar span { display: none; } /* Show only icons on mobile */
+  .auth-card { padding: 2.5rem 1.5rem; }
+  .main-panel h1 { font-size: 2rem; }
+  .scan-btn-large { padding: 4rem 1rem; }
+}
+
+/* ANIMATIONS */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- PROFESSIONAL SCROLLBAR --- */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 20px;
 }
